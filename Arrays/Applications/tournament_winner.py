@@ -63,6 +63,7 @@ def tournament_winner(competitions, results):
     teams = {}
     winning_team_val = 0
     winning_team_name = ""
+
     for team, result in zip(competitions, results):
         if result == 1:
             if team[0] not in teams:
@@ -77,6 +78,7 @@ def tournament_winner(competitions, results):
             temp_team_name = team[1]
             temp_team_val = teams[team[1]]
 
+        # Set the winning team val to the current value.
         if temp_team_val > winning_team_val:
             winning_team_val = temp_team_val
             winning_team_name = temp_team_name
