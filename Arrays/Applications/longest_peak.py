@@ -24,13 +24,41 @@
 
 
 def longest_peak(array):
-    peaks = []
-    # finding the peaks
-    for idx in range(1, len(array)-1):
-        if array[idx-1] < array[idx] > array[idx+1]:
-            peaks.append(idx)
+    """
+    >>> longest_peak([1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3])
+    6
+    """
+    longest_peak_len = 0
+    i = 1
 
-    # fiding the length of the peak
+    while i < len(array)-1:
+        is_peak = array[i-1] < array[i] and array[i] > array[i+1]
+        # if peak not found continue the search
+        if not is_peak:
+            i += 1
+            continue
+
+        # if peak found check the left of the peak are in strictly decreasing order
+        # The reason to take i-2 to jump one elemnt left of peak is to compare immediate
+        # left element with next to that element.
+        left_idx = i-2
+        while left_idx >= 0 and array[left_idx] < array[left_idx+1]:
+            left_idx -= 1
+
+        # Similar way comparing right of the peak decreasing
+        right_idx = i+2
+        while right_idx < len(array) and array[right_idx] < array[right_idx-1]:
+            right_idx += 1
+
+        # finding the longes peak, hear subtracting 1 because right index might have
+        # already jumped next to the decreasing order
+        current_peak_len = right_idx - left_idx - 1
+        longest_peak_len = max(longest_peak_len, current_peak_len)
+        # now we are not going to find any peak where aleary found peak length
+        # we are going to start our next search with right index.
+        i = right_idx
+
+    return longest_peak_len
 
 
-longest_peak([1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3])
+print(longest_peak([1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3]))
