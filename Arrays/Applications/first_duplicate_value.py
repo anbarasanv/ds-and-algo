@@ -10,6 +10,8 @@ def first_duplicate(array):
     """
     >>> first_duplicate([2,1,5,2,3,3,4])
     2
+    >>> first_duplicate([2,1,5,3,3,2,4])
+    3
     """
     for item in array:
         if array[abs(item) - 1] < 0:
