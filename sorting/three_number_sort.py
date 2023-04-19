@@ -14,9 +14,9 @@
  """
 
 
-def three_number_sort(array, order):
-    """
-    >>> three_number_sort([1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1])
+def three_number_sort_1(array, order):
+    """Solution-1
+    >>> three_number_sort_1([1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1])
     [0, 0, 0, 1, 1, 1, -1, -1]
     """
     left_num = order[0]
@@ -34,4 +34,30 @@ def three_number_sort(array, order):
             array[i], array[swap_idx] = array[swap_idx], array[i]
             swap_idx -= 1
 
+    return array
+
+
+def three_number_sort_2(array, order):
+    """
+    >>> three_number_sort_2([1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1])
+    [0, 0, 0, 1, 1, 1, -1, -1]
+    """
+    first_value = order[0]
+    second_value = order[1]
+
+    first_idx, second_idx, third_idx = 0, 0, len(array) - 1
+
+    while second_idx <= third_idx:
+        value = array[second_idx]
+
+        if value == first_value:
+            array[second_idx], array[first_idx] = array[first_idx], array[second_idx]
+            first_idx += 1
+            second_idx += 1
+            continue
+        if value == second_value:
+            second_idx += 1
+        else:
+            array[third_idx], array[second_idx] = array[second_idx], array[third_idx]
+            third_idx -= 1
     return array
